@@ -12,7 +12,8 @@
 body{
     background:#080B17;
     color:#fff;
-    overflow:hidden;
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 
 /* =========================
@@ -367,20 +368,150 @@ header p{
         padding:20px;
     }
 
+    header{
+        gap:16px;
+        align-items:flex-start;
+        flex-wrap:wrap;
+    }
+
+    .clock{
+        order:2;
+    }
+
+    #logout{
+        order:3;
+    }
+
 }
 
 @media(max-width:768px){
+
+    body{
+        padding:16px;
+    }
+
+    header{
+        flex-direction:column;
+        align-items:flex-start;
+        margin-bottom:24px;
+    }
+
+    header h1{
+        font-size:22px;
+    }
+
+    .clock{
+        font-size:20px;
+    }
+
+    #logout{
+        width:100%;
+    }
+
+    .dashboard{
+        gap:20px;
+        margin-top:20px;
+    }
+
+    .calendar-section,
+    .task-panel{
+        padding:20px;
+        border-radius:20px;
+    }
+
+    .calendar-header h2,
+    .task-panel h2{
+        font-size:22px;
+    }
+
+    .calendar-header button{
+        width:40px;
+        height:40px;
+    }
+
+    .weekdays{
+        font-size:12px;
+        gap:4px;
+    }
 
     .calendar-grid{
         gap:8px;
     }
 
     .day{
-        height:60px;
+        height:52px;
+        border-radius:14px;
+    }
+
+    .add-box{
+        flex-direction:column;
+    }
+
+    .add-box button{
+        width:100%;
+        height:50px;
+    }
+
+    #taskList{
+        max-height:none;
+    }
+
+    #taskList li{
+        padding:14px;
+    }
+
+    .progress-card{
+        margin-top:24px;
+    }
+
+}
+
+@media(max-width:480px){
+
+    body{
+        padding:12px;
     }
 
     header h1{
-        font-size:24px;
+        font-size:20px;
+    }
+
+    .calendar-section,
+    .task-panel{
+        padding:16px;
+    }
+
+    .calendar-header{
+        margin-bottom:20px;
+    }
+
+    .calendar-header h2,
+    .task-panel h2{
+        font-size:20px;
+    }
+
+    .weekdays{
+        margin-bottom:10px;
+        font-size:11px;
+    }
+
+    .calendar-grid{
+        gap:6px;
+    }
+
+    .day{
+        height:44px;
+        border-radius:12px;
+        font-size:14px;
+    }
+
+    .task-left{
+        gap:10px;
+    }
+
+    .delete-btn{
+        width:34px;
+        height:34px;
     }
 
 }
