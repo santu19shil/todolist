@@ -714,8 +714,11 @@ body.light-on .background::after{
 @media(max-width:900px){
 
     body{
+        flex-direction:column;
         justify-content:flex-start;
+        align-items:center;
         padding:24px 16px 40px;
+        gap:18px;
     }
 
     .lamp-area{
@@ -729,6 +732,7 @@ body.light-on .background::after{
 
         width:min(220px,70vw);
         margin-top:12px;
+        margin-bottom:0;
 
     }
 
@@ -759,7 +763,7 @@ body.light-on .background::after{
 
         width:min(430px,100%);
         max-width:420px;
-        margin-top:28px;
+        margin-top:8px;
 
     }
 
@@ -1088,7 +1092,7 @@ body.light-on #authBox{
     .lamp-message{
         position:relative;
 
-        top:70px;
+        top:auto;
         right:auto;
 
         transform:none;
@@ -1100,6 +1104,7 @@ body.light-on #authBox{
     }
 
     .lamp-area{
+        position:relative;
         left:50%;
         top:40px;
 
