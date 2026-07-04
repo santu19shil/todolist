@@ -1105,10 +1105,12 @@ body.light-on #authBox{
 
     .lamp-area{
         position:relative;
-        left:50%;
-        top:40px;
+        left:auto;
+        top:auto;
 
-        transform:translateX(-50%);
+        transform:none;
+
+        margin:0 auto;
     }
 
     body:not(.light-on) #lampMessage{
