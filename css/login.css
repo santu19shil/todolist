@@ -731,24 +731,26 @@ body.light-on .background::after{
         transform:none;
 
         width:min(220px,70vw);
-        margin-top:12px;
-        margin-bottom:0;
+        height:240px;
+        margin:0 auto 0;
 
     }
 
     .lamp{
 
-        width:min(160px,60vw);
+        display:block;
+        width:min(150px,58vw);
+        margin:0 auto;
 
     }
 
     .light-cone{
 
         left:50%;
-        top:76px;
+        top:74px;
 
-        width:min(420px,92vw);
-        height:220px;
+        width:min(360px,92vw);
+        height:170px;
 
     }
 
@@ -763,7 +765,7 @@ body.light-on .background::after{
 
         width:min(430px,100%);
         max-width:420px;
-        margin-top:8px;
+        margin-top:24px;
 
     }
 
@@ -1095,12 +1097,12 @@ body.light-on #authBox{
         top:auto;
         right:auto;
 
-        transform:none;
+        transform:none !important;
 
         width:92%;
         max-width:420px;
 
-        margin:0 auto;
+        margin:24px auto 0;
     }
 
     .lamp-area{
@@ -1114,8 +1116,7 @@ body.light-on #authBox{
     }
 
     body:not(.light-on) #lampMessage{
-        animation:
-            lampMessageIn 0.9s cubic-bezier(.2,.9,.2,1) both;
+        animation:none;
     }
 
 }
