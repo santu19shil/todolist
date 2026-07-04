@@ -85,6 +85,9 @@ body.light-on .background{
     cursor:pointer;
 
     user-select:none;
+    -webkit-user-drag:none;
+    user-drag:none;
+    -webkit-touch-callout:none;
 
     transition:
         transform .35s,
