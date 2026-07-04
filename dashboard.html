@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ToDo List | Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Main -->
+
+    <main class="main">
+
+        <!-- Header -->
+
+        <header>
+
+            <div>
+
+                <h1 id="greeting">Good Evening 👋</h1>
+
+                <p id="todayDate"></p>
+
+            </div>
+
+            <div class="clock" id="clock"></div>
+            <button id="logout">
+
+Logout
+
+</button>
+
+        </header>
+
+
+
+        <!-- Dashboard -->
+
+        <div class="dashboard">
+
+            <!-- Calendar -->
+
+            <section class="calendar-section">
+
+                <div class="calendar-header">
+
+                    <button id="prevMonth">
+
+                        <i class="fa-solid fa-angle-left"></i>
+
+                    </button>
+
+                    <h2 id="monthYear"></h2>
+
+                    <button id="nextMonth">
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="weekdays">
+
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+
+                </div>
+
+                <div id="calendar" class="calendar-grid">
+
+                    <!-- JavaScript -->
+
+                </div>
+
+            </section>
+
+
+
+            <!-- Right Panel -->
+
+            <section class="task-panel">
+
+                <h2>
+
+                    Selected Date
+
+                </h2>
+
+                <h3 id="selectedDate">
+
+                    Select a day
+
+                </h3>
+
+
+
+                <div class="add-box">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter a task">
+
+                    <button id="addTask">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </button>
+
+                </div>
+
+
+
+                <ul id="taskList">
+
+                </ul>
+
+
+
+                <div class="progress-card">
+
+                    <h4>Today's Progress</h4>
+
+                    <div class="progress-bar">
+
+                        <div id="progressFill"></div>
+
+                    </div>
+
+                    <p id="progressText">
+
+                        0% Completed
+
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
