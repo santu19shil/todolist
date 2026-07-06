@@ -3,79 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=login.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome | Login</title>
-    <link rel="stylesheet" href="css/login.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>LumiTask</title>
+    <script>
+        window.location.replace("login.html");
+    </script>
 </head>
 
 <body>
-    <!-- Page background -->
-    <div class="background"></div>
-    <!-- Lamp area -->
-    <div class="lamp-area">
-        <img src="assets/lamp-off.png" id="lamp" class="lamp" draggable="false" alt="Lamp">
-        <div class="light-cone"></div>
-    </div>
-    <!-- Welcome message shown when the lamp is off -->
-    <div id="lampMessage" class="lamp-message">
-        <h2>Welcome</h2>
-        <p>Plan your day with a clear mind.</p>
-    </div>
-    <div id="toast" class="toast"></div>
-    <!-- Login card -->
-    <div id="authBox" class="login-card">
-        <h1>Welcome</h1>
-        <p class="subtitle">Sign in to continue</p>
-        <!-- Login and register tabs -->
-        <div class="form-switch">
-            <button id="loginTab" class="active">Login</button>
-            <button id="registerTab">Register</button>
-        </div>
-        <!-- Login form -->
-        <form id="loginForm">
-            <div class="input-box">
-                <input type="text" id="username" placeholder="Username">
-                <span class="error" id="loginUserError"></span>
-            </div>
-            <div class="input-box">
-                <input type="password" id="password" placeholder="Password">
-                <span class="error" id="loginPassError"></span>
-            </div>
-            <div class="remember-row">
-                <label>
-                    <input type="checkbox" id="rememberMe">
-                    <span>Remember me</span>
-                </label>
-            </div>
-            <button type="button" id="loginBtn">Login</button>
-        </form>
-        <!-- Register form -->
-        <form id="registerForm" style="display:none;">
-            <div class="input-box">
-                <input type="text" id="regUsername" placeholder="Username">
-                <span class="error" id="regUserError"></span>
-            </div>
-            <div class="input-box">
-                <input type="email" id="regEmail" placeholder="Email">
-                <span class="error" id="regEmailError"></span>
-            </div>
-            <div class="input-box">
-                <input type="password" id="regPassword" placeholder="Password">
-                <span class="error" id="regPassError"></span>
-            </div>
-            <div class="input-box">
-                <input type="password" id="confirmPassword" placeholder="Confirm Password">
-                <span class="error" id="confirmError"></span>
-            </div>
-            <button type="button" id="registerBtn">Register</button>
-        </form>
-    </div>
-    <script src="js/login.js"></script>
-
+    <p><a href="login.html">Continue to LumiTask</a></p>
 </body>
 
 </html>
