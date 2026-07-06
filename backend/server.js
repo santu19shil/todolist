@@ -29,13 +29,15 @@ app.use(
     })
 );
 
+// ================= CORS (FIXED) =================
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || true,
+        origin: process.env.CLIENT_URL, // <-- IMPORTANT
         credentials: true
     })
 );
 
+// ================= BASIC MIDDLEWARE =================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -51,7 +53,7 @@ app.use(
     })
 );
 
-// ================= HEALTH =================
+// ================= HEALTH CHECK =================
 app.get("/api/health", (req, res) => {
     res.json({
         success: true,
@@ -59,11 +61,11 @@ app.get("/api/health", (req, res) => {
     });
 });
 
-// ================= API =================
+// ================= API ROUTES =================
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 
-// ================= STATIC FILES =================
+// ================= STATIC FRONTEND =================
 app.use(express.static(frontendPath));
 
 // ================= PAGES =================
@@ -91,7 +93,7 @@ app.get("/verify-email.html", (req, res) => {
     res.sendFile(path.join(frontendPath, "verify-email.html"));
 });
 
-// ================= 404 =================
+// ================= 404 HANDLER =================
 app.use((req, res) => {
     res.status(404).json({
         success: false,
@@ -106,12 +108,10 @@ async function startServer() {
         connection.release();
 
         app.listen(PORT, "0.0.0.0", () => {
-            console.log("");
             console.log("==================================");
             console.log("🚀 LumiTask Backend Started");
-            console.log(`🌐 http://localhost:${PORT}`);
+            console.log(`🌐 Port: ${PORT}`);
             console.log("==================================");
-            console.log("");
         });
 
     } catch (err) {

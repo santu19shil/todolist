@@ -1,10 +1,19 @@
+const API_BASE_URL = "https://todolist-production-0ee.up.railway.app";
+
+// =========================
+// REQUEST HELPER
+// =========================
 function requestJson(url, options = {}) {
     const fetchOptions = {
         credentials: "include",
         ...options
     };
 
-    if (options.body && typeof options.body === "object" && !(options.body instanceof FormData)) {
+    if (
+        options.body &&
+        typeof options.body === "object" &&
+        !(options.body instanceof FormData)
+    ) {
         fetchOptions.headers = {
             "Content-Type": "application/json",
             ...(options.headers || {})
@@ -25,47 +34,49 @@ function requestJson(url, options = {}) {
     });
 }
 
+// =========================
+// MESSAGE HANDLER
+// =========================
 function setMessage(element, text, status) {
-    if (!element) {
-        return;
-    }
+    if (!element) return;
 
     element.textContent = text;
     element.dataset.status = status || "";
 }
 
+// =========================
+// PASSWORD TOGGLE
+// =========================
 function wirePasswordToggles() {
     document.querySelectorAll(".toggle-password").forEach((icon) => {
         icon.addEventListener("click", () => {
             const targetInput = document.getElementById(icon.dataset.target);
 
-            if (!targetInput) {
-                return;
-            }
+            if (!targetInput) return;
 
             if (targetInput.type === "password") {
                 targetInput.type = "text";
                 icon.classList.remove("fa-eye");
                 icon.classList.add("fa-eye-slash");
-                return;
+            } else {
+                targetInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
             }
-
-            targetInput.type = "password";
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
         });
     });
 }
 
+// =========================
+// FORGOT PASSWORD
+// =========================
 function initializeForgotPasswordPage() {
     const form = document.getElementById("forgotPasswordForm");
     const emailInput = document.getElementById("forgotEmail");
     const message = document.getElementById("forgotMessage");
     const button = document.getElementById("forgotBtn");
 
-    if (!form || !emailInput || !button) {
-        return;
-    }
+    if (!form || !emailInput || !button) return;
 
     const defaultText = button.textContent.trim();
 
@@ -83,17 +94,25 @@ function initializeForgotPasswordPage() {
         button.textContent = "Sending...";
 
         try {
-            const { response, data } = await requestJson("/api/auth/forgot-password", {
-                method: "POST",
-                body: { email }
-            });
+            const { response, data } = await requestJson(
+                `${API_BASE_URL}/api/auth/forgot-password`,
+                {
+                    method: "POST",
+                    body: { email }
+                }
+            );
 
             if (!response.ok) {
                 setMessage(message, data.message || "Unable to send reset link.", "error");
                 return;
             }
 
-            setMessage(message, "If that email exists, a reset link has been sent.", "success");
+            setMessage(
+                message,
+                "If that email exists, a reset link has been sent.",
+                "success"
+            );
+
             form.reset();
         } catch (error) {
             setMessage(message, "Unable to send reset link right now.", "error");
@@ -104,6 +123,9 @@ function initializeForgotPasswordPage() {
     });
 }
 
+// =========================
+// RESET PASSWORD
+// =========================
 function initializeResetPasswordPage() {
     const form = document.getElementById("resetPasswordForm");
     const tokenInput = document.getElementById("resetToken");
@@ -112,9 +134,7 @@ function initializeResetPasswordPage() {
     const message = document.getElementById("resetMessage");
     const button = document.getElementById("resetBtn");
 
-    if (!form || !tokenInput || !passwordInput || !confirmInput || !button) {
-        return;
-    }
+    if (!form || !tokenInput || !passwordInput || !confirmInput || !button) return;
 
     const token = new URLSearchParams(window.location.search).get("token") || "";
     tokenInput.value = token;
@@ -142,22 +162,31 @@ function initializeResetPasswordPage() {
         button.textContent = "Updating...";
 
         try {
-            const { response, data } = await requestJson("/api/auth/reset-password", {
-                method: "POST",
-                body: {
-                    token,
-                    password,
-                    confirmPassword
+            const { response, data } = await requestJson(
+                `${API_BASE_URL}/api/auth/reset-password`,
+                {
+                    method: "POST",
+                    body: {
+                        token,
+                        password,
+                        confirmPassword
+                    }
                 }
-            });
+            );
 
             if (!response.ok) {
                 setMessage(message, data.message || "Unable to reset password.", "error");
                 return;
             }
 
-            setMessage(message, "Password updated successfully. Redirecting to login...", "success");
+            setMessage(
+                message,
+                "Password updated successfully. Redirecting to login...",
+                "success"
+            );
+
             form.reset();
+
             setTimeout(() => {
                 window.location.href = "login.html";
             }, 1800);
@@ -170,31 +199,51 @@ function initializeResetPasswordPage() {
     });
 }
 
+// =========================
+// VERIFY EMAIL (FIXED)
+// =========================
 function initializeVerifyEmailPage() {
     const statusElement = document.getElementById("verifyStatus");
 
-    if (!statusElement) {
+    if (!statusElement) return;
+
+    const token = new URLSearchParams(window.location.search).get("token");
+
+    if (!token) {
+        setMessage(statusElement, "Missing verification token.", "error");
         return;
     }
 
-    const status = new URLSearchParams(window.location.search).get("status") || "error";
+    fetch(`${API_BASE_URL}/api/auth/verify-email?token=${token}`)
+        .then(async (res) => {
+            const data = await res.json().catch(() => ({}));
 
-    const messages = {
-        success: "Email verified successfully. You can now sign in.",
-        invalid: "The verification link is invalid or has already been used.",
-        missing: "The verification token is missing.",
-        error: "Unable to verify the email right now."
-    };
+            if (res.ok && data.success) {
+                setMessage(
+                    statusElement,
+                    "Email verified successfully. Redirecting to login...",
+                    "success"
+                );
 
-    setMessage(statusElement, messages[status] || messages.error, status === "success" ? "success" : "error");
-
-    if (status === "success") {
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 2500);
-    }
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 2000);
+            } else {
+                setMessage(
+                    statusElement,
+                    data.message || "Email verification failed.",
+                    "error"
+                );
+            }
+        })
+        .catch(() => {
+            setMessage(statusElement, "Server error. Please try again.", "error");
+        });
 }
 
+// =========================
+// INIT
+// =========================
 wirePasswordToggles();
 initializeForgotPasswordPage();
 initializeResetPasswordPage();
